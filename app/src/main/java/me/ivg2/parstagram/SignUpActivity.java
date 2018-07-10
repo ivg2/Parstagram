@@ -1,5 +1,6 @@
 package me.ivg2.parstagram;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -47,9 +48,10 @@ public class SignUpActivity extends AppCompatActivity {
                 user.signUpInBackground(new SignUpCallback() {
                     public void done(ParseException e) {
                         if (e == null) {
-                            //transfer user to the homesceen of the app
-                            MainActivity activity = new MainActivity();
-                            activity.login(handle, password);
+                            //pass the user to the homescreen if successful
+                            Intent intent = new Intent(SignUpActivity.this, HomeActivity.class);
+                            startActivity(intent);
+                            finish();
                         } else {
                             e.printStackTrace();
                         }

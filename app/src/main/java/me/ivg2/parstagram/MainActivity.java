@@ -90,4 +90,17 @@ public class MainActivity extends AppCompatActivity {
         if (animationDrawable != null && animationDrawable.isRunning())
             animationDrawable.stop();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        ParseUser user = ParseUser.getCurrentUser();
+
+        if(user != null) {
+            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 }
