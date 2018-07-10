@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText usernameInput;
     private EditText passwordInput;
     private Button loginBtn;
+    private Button signupBtn;
 
     AnimationDrawable animationDrawable;
     RelativeLayout relativeLayout;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         usernameInput = findViewById(R.id.username);
         passwordInput = findViewById(R.id.password);
         loginBtn = findViewById(R.id.login);
+        signupBtn = findViewById(R.id.signupBtn);
 
         loginBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -42,13 +44,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        signupBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+                startActivity(intent);
+            }
+        });
+
         relativeLayout = findViewById(R.id.relativeLayout);
         animationDrawable = (AnimationDrawable) relativeLayout.getBackground();
         animationDrawable.setEnterFadeDuration(5000);
         animationDrawable.setExitFadeDuration(2000);
     }
 
-    private void login(String username, String password) {
+    public void login(String username, String password) {
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
