@@ -1,8 +1,6 @@
 package me.ivg2.parstagram;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -17,9 +15,7 @@ import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 import java.io.File;
 import java.util.List;
@@ -35,14 +31,13 @@ public class HomeActivity extends AppCompatActivity {
     public final String APP_TAG = "MyCustomApp";
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
     public String photoFileName = "photo.jpg";
-    File photoFile;
+    public File photoFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        descriptionInput = findViewById(R.id.description);
         createBtn = findViewById(R.id.create);
         refreshBtn = findViewById(R.id.refresh);
 
@@ -53,8 +48,6 @@ public class HomeActivity extends AppCompatActivity {
                 final ParseUser user = ParseUser.getCurrentUser();
 
                 onLaunchCamera();
-
-                //createPost(description, parseFile, user);
             }
         });
 
@@ -80,24 +73,6 @@ public class HomeActivity extends AppCompatActivity {
                                 + objects.get(i).getDescription()
                                 + "\nUserName = " + objects.get(i).getUser().getUsername());
                     }
-                } else {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    public void createPost(String description, ParseFile imageFile, ParseUser user) {
-        final Post post = new Post();
-        post.setDescription(description);
-        post.setImage(imageFile);
-        post.setUser(user);
-
-        post.saveInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    Log.d("HomeActivity", "Create Post Success");
                 } else {
                     e.printStackTrace();
                 }
@@ -161,12 +136,9 @@ public class HomeActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                // by this point we have the camera photo on disk
-                Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
-                // RESIZE BITMAP, see section below
-                // Load the taken image into a preview
-                //ImageView ivPreview = (ImageView) findViewById(R.id.ivPreview);
-                //ivPreview.setImageBitmap(takenImage);
+                Intent editPostIntent = new Intent(this, EditPostActivity.class);
+                editPostIntent.putExtra("image_path", photoFile.getAbsolutePath());
+                startActivity(editPostIntent);
             } else { // Result was a failure
                 Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
