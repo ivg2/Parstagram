@@ -8,10 +8,12 @@
     <color name="light_blue_500">#03A9F4</color>
 
     <color name="colorPrimary">#bfffffff</color>
-    <color name="action_bar_transparent_background">#20000000</color>
-    <color name="action_bar_transparent_background_pressed_state">#30000000</color>
     <color name="colorPrimaryDark">#8a000000</color>
     <color name="colorAccent">#de000000</color>
+
+
+    <color name="action_bar_transparent_background">#20000000</color>
+    <color name="action_bar_transparent_background_pressed_state">#30000000</color>
     <color name="avatar_stroke">@color/black_20_transparent</color>
     <color name="bioTextEntityFontColor">@color/blue_8</color>
     <color name="black">#ff000000</color>
