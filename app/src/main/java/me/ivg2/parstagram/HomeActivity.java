@@ -7,10 +7,11 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.parse.FindCallback;
@@ -18,13 +19,13 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import me.ivg2.parstagram.Model.Post;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private EditText descriptionInput;
     private Button createBtn;
     private Button refreshBtn;
 
@@ -33,6 +34,10 @@ public class HomeActivity extends AppCompatActivity {
     public String photoFileName = "photo.jpg";
     public File photoFile;
 
+    private PostAdapter postAdapter;
+    private ArrayList<Post> posts;
+    private RecyclerView rvPosts;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,13 +45,17 @@ public class HomeActivity extends AppCompatActivity {
 
         createBtn = findViewById(R.id.create);
         refreshBtn = findViewById(R.id.refresh);
+        rvPosts = findViewById(R.id.rvPosts);
+        posts = new ArrayList<>();
+        postAdapter = new PostAdapter(posts);
+
+        //RecyclerView setup -- layout manager and use adapter
+        rvPosts.setLayoutManager(new LinearLayoutManager(this));
+        rvPosts.setAdapter(postAdapter);
 
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String description = descriptionInput.getText().toString();
-                final ParseUser user = ParseUser.getCurrentUser();
-
                 onLaunchCamera();
             }
         });
@@ -57,6 +66,8 @@ public class HomeActivity extends AppCompatActivity {
                 loadTopPosts();
             }
         });
+
+        loadTopPosts();
     }
 
     public void loadTopPosts() {
@@ -68,11 +79,8 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void done(List<Post> objects, ParseException e) {
                 if (e == null) {
-                    for (int i = 0; i < objects.size(); i ++) {
-                        Log.d("HomeActivity", "Post[" + i + "] = "
-                                + objects.get(i).getDescription()
-                                + "\nUserName = " + objects.get(i).getUser().getUsername());
-                    }
+                    postAdapter.clear();
+                    postAdapter.addAll(objects);
                 } else {
                     e.printStackTrace();
                 }

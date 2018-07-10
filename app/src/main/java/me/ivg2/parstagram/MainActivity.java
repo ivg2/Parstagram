@@ -96,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         ParseUser user = ParseUser.getCurrentUser();
-
         if(user != null) {
             Intent intent = new Intent(MainActivity.this, HomeActivity.class);
             startActivity(intent);

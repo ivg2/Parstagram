@@ -6,11 +6,13 @@
         android:id="@+id/newPost"
         android:layout_marginRight="30dp"
         android:actionLayout="@layout/activity_home"
+        app:showAsAction="always"
         android:icon="@drawable/instagram_new_post_outline_24"
         android:title="Compose"></item>
     <item
         android:id="@+id/send"
         android:layout_marginRight="30dp"
+        app:showAsAction="always"
         android:actionLayout="@layout/activity_home"
         android:icon="@drawable/direct"
         android:title="Send"></item>
