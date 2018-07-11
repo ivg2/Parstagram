@@ -35,6 +35,7 @@ public class HomeActivity extends AppCompatActivity {
         // define fragments
         final Fragment fragment1 = new TimelineFragment();
         final Fragment fragment2 = new NewPostFragment();
+        final Fragment fragment3 = new ProfileFragment();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -52,6 +53,9 @@ public class HomeActivity extends AppCompatActivity {
                         fragmentTransaction2.replace(R.id.homeFragment, fragment2).commit();
                         onLaunchCamera();
                         return true;
+                    case R.id.person:
+                        FragmentTransaction fragmentTransaction3 = fragmentManager.beginTransaction();
+                        fragmentTransaction3.replace(R.id.homeFragment, fragment3).commit();
                 }
                 return false;
             }

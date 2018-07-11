@@ -2,7 +2,6 @@ package me.ivg2.parstagram;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -12,11 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +75,8 @@ public class TimelineFragment extends Fragment {
     public void loadTopPosts() {
         //grabs all of the posts in the background
         final Post.Query postsQuery = new Post.Query();
-        postsQuery.getTop().withUser();
+        postsQuery.getTop().withUser().addDescendingOrder("createdAt");
+        //postsQuery.getTop().withUser();
 
         postsQuery.findInBackground(new FindCallback<Post>() {
             @Override
@@ -91,18 +89,6 @@ public class TimelineFragment extends Fragment {
                 }
             }
         });
-    }
-
-    public void logout(View v) {
-        ParseUser.logOut();
-        ParseUser currentUser = ParseUser.getCurrentUser();
-
-        if (currentUser == null) {
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            startActivity(intent);
-        } else {
-            Toast.makeText(getActivity(), "Logout Successful", Toast.LENGTH_SHORT);
-        }
     }
 
     @Override
