@@ -1,8 +1,11 @@
 package me.ivg2.parstagram;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,6 +30,19 @@ public class TimelineFragment extends Fragment {
     private PostAdapter postAdapter;
     private ArrayList<Post> posts;
     private RecyclerView rvPosts;
+
+    private FragmentActivity listener;
+
+    // This event fires 1st, before creation of fragment or any views
+    // The onAttach method is called when the Fragment instance is associated with an Activity.
+    // This does not mean the Activity is fully initialized.
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof Activity){
+            this.listener = (FragmentActivity) context;
+        }
+    }
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
@@ -87,5 +103,16 @@ public class TimelineFragment extends Fragment {
         } else {
             Toast.makeText(getActivity(), "Logout Successful", Toast.LENGTH_SHORT);
         }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        this.listener = null;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 }

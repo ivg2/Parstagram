@@ -6,30 +6,30 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
     android:enabled="true"
     android:icon="@drawable/instagram_home_outline_24"
     android:title="home"
-    app:showAsAction="ifRoom" />
+    app:showAsAction="always" />
 <item
     android:id="@+id/search"
     android:enabled="true"
-    android:icon="@drawable/search"
+    android:icon="@drawable/direct"
     android:title="search"
-    app:showAsAction="ifRoom" />
+    app:showAsAction="always" />
 <item
     android:id="@+id/post"
     android:enabled="true"
     android:icon="@drawable/instagram_new_post_outline_24"
-    android:title="newPost"
-    app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/heart"
-        android:enabled="true"
-        android:icon="@drawable/ufi_heart"
-        android:title="heart"
-        app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/person"
-        android:enabled="true"
-        android:icon="@drawable/instagram_user_outline_24"
-        android:title="person"
-        app:showAsAction="ifRoom" />
+    android:title=""
+    app:showAsAction="always" />
+<item
+    android:id="@+id/heart"
+    android:enabled="true"
+    android:icon="@drawable/ufi_heart"
+    android:title="heart"
+    app:showAsAction="always" />
+<item
+    android:id="@+id/person"
+    android:enabled="true"
+    android:icon="@drawable/instagram_user_outline_24"
+    android:title="person"
+    app:showAsAction="always" />
 
 </menu>
