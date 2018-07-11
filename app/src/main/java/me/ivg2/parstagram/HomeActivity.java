@@ -14,7 +14,10 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
+
+import com.parse.ParseUser;
 
 import java.io.File;
 
@@ -36,6 +39,9 @@ public class HomeActivity extends AppCompatActivity {
         final Fragment fragment1 = new TimelineFragment();
         final Fragment fragment2 = new NewPostFragment();
         final Fragment fragment3 = new ProfileFragment();
+
+        FragmentTransaction fragmentTransaction1 = fragmentManager.beginTransaction();
+        fragmentTransaction1.replace(R.id.homeFragment, fragment1).commit();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -111,6 +117,18 @@ public class HomeActivity extends AppCompatActivity {
             } else { // Result was a failure
                 Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    public void logout(View v) {
+        ParseUser.logOut();
+        ParseUser currentUser = ParseUser.getCurrentUser();
+
+        if (currentUser == null) {
+            Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(HomeActivity.this, "Logout Failure", Toast.LENGTH_SHORT);
         }
     }
 }

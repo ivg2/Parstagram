@@ -34,7 +34,7 @@ public class EditPostActivity extends AppCompatActivity {
         imagePath = intent.getStringExtra("image_path");
         // by this point we have the camera photo on disk
         Bitmap takenImage = BitmapFactory.decodeFile(imagePath);
-        // RESIZE BITMAP, see section below
+        // RESIZE BITMAP, see section belowhhtejfbvthnlldhibrebrkdliirugnid
         // Load the taken image into a preview
         ImageView ivPreview = (ImageView) findViewById(R.id.imageView);
         ivPreview.setImageBitmap(takenImage);

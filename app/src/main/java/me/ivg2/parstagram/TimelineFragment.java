@@ -5,12 +5,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -22,13 +22,13 @@ import me.ivg2.parstagram.Model.Post;
 
 public class TimelineFragment extends Fragment {
 
-    private Button refreshBtn;
-
     private PostAdapter postAdapter;
     private ArrayList<Post> posts;
     private RecyclerView rvPosts;
 
     private FragmentActivity listener;
+
+    private SwipeRefreshLayout swipeContainer;
 
     // This event fires 1st, before creation of fragment or any views
     // The onAttach method is called when the Fragment instance is associated with an Activity.
@@ -53,7 +53,6 @@ public class TimelineFragment extends Fragment {
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        refreshBtn = view.findViewById(R.id.refresh);
         rvPosts = view.findViewById(R.id.rvPosts);
         posts = new ArrayList<>();
         postAdapter = new PostAdapter(posts);
@@ -62,14 +61,26 @@ public class TimelineFragment extends Fragment {
         rvPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvPosts.setAdapter(postAdapter);
 
-        refreshBtn.setOnClickListener(new View.OnClickListener() {
+        loadTopPosts();
+
+        // Lookup the swipe container view
+        swipeContainer = view.findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onClick(View view) {
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
                 loadTopPosts();
+                swipeContainer.setRefreshing(false);
             }
         });
-
-        loadTopPosts();
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
 
     public void loadTopPosts() {
