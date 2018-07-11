@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("LoginActivity", "login successful");
 
                     //pass the user to the homescreen if successful
-                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                    Intent intent = new Intent(MainActivity.this,  HomeActivity.class);
                     startActivity(intent);
                     finish();
                 } else {

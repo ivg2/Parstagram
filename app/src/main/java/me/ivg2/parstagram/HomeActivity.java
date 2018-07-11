@@ -7,98 +7,23 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseUser;
-
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import me.ivg2.parstagram.Model.Post;
 
 public class HomeActivity extends AppCompatActivity {
-
-    private Button createBtn;
-    private Button refreshBtn;
 
     public final String APP_TAG = "MyCustomApp";
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
     public String photoFileName = "photo.jpg";
     public File photoFile;
 
-    private PostAdapter postAdapter;
-    private ArrayList<Post> posts;
-    private RecyclerView rvPosts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        createBtn = findViewById(R.id.create);
-        refreshBtn = findViewById(R.id.refresh);
-        rvPosts = findViewById(R.id.rvPosts);
-        posts = new ArrayList<>();
-        postAdapter = new PostAdapter(posts);
-
-        //RecyclerView setup -- layout manager and use adapter
-        rvPosts.setLayoutManager(new LinearLayoutManager(this));
-        rvPosts.setAdapter(postAdapter);
-
-        createBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onLaunchCamera();
-            }
-        });
-
-        refreshBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                loadTopPosts();
-            }
-        });
-
-        loadTopPosts();
-    }
-
-    public void loadTopPosts() {
-        //grabs all of the posts in the background
-        final Post.Query postsQuery = new Post.Query();
-        postsQuery.getTop().withUser();
-
-        postsQuery.findInBackground(new FindCallback<Post>() {
-            @Override
-            public void done(List<Post> objects, ParseException e) {
-                if (e == null) {
-                    postAdapter.clear();
-                    postAdapter.addAll(objects);
-                } else {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    public void logout(View v) {
-        ParseUser.logOut();
-        ParseUser currentUser = ParseUser.getCurrentUser();
-
-        if (currentUser == null) {
-            Intent intent = new Intent(HomeActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        } else {
-            Toast.makeText(this, "Logout Successful", Toast.LENGTH_SHORT);
-        }
     }
 
 
