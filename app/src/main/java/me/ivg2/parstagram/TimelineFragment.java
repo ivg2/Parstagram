@@ -20,7 +20,7 @@ import java.util.List;
 
 import me.ivg2.parstagram.Model.Post;
 
-public class timelineFragment extends Fragment {
+public class TimelineFragment extends Fragment {
 
     private Button refreshBtn;
 
@@ -58,6 +58,7 @@ public class timelineFragment extends Fragment {
 
         loadTopPosts();
     }
+
     public void loadTopPosts() {
         //grabs all of the posts in the background
         final Post.Query postsQuery = new Post.Query();

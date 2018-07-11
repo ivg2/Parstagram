@@ -5,9 +5,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import java.io.File;
@@ -23,7 +29,31 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+
+        // define fragments
+        final Fragment fragment1 = new TimelineFragment();
+        final Fragment fragment2 = new NewPostFragment();
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                //currently I only need two cases - home timeline and creating a post
+                switch (item.getItemId()) {
+                    case R.id.home:
+                        FragmentTransaction fragmentTransaction1 = fragmentManager.beginTransaction();
+                        fragmentTransaction1.replace(R.id.homeFragment, fragment1).commit();
+                        return true;
+                    case R.id.post:
+                        FragmentTransaction fragmentTransaction2 = fragmentManager.beginTransaction();
+                        fragmentTransaction2.replace(R.id.homeFragment, fragment2).commit();
+                        onLaunchCamera();
+                        return true;
+                }
+            }
+        });
     }
 
 
