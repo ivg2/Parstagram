@@ -93,6 +93,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvUsername = itemView.findViewById(R.id.postUsername);
             tvTime = itemView.findViewById(R.id.currentTime);
             ivImage = itemView.findViewById(R.id.postImage);
+
+            itemView.setOnClickListener(this);
         }
 
         //when a user clicks on a row show the Post details

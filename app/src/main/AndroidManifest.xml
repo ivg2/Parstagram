@@ -30,6 +30,8 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".SignUpActivity" />
+        <activity android:name=".EditPostActivity"/>
+        <activity android:name=".PostDetail"/>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -41,7 +43,6 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-        <activity android:name=".EditPostActivity"></activity>
     </application>
 
 </manifest>
