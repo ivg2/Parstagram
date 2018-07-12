@@ -5,11 +5,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_top"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/action_bar_bkgnd" >
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                app:srcCompat = "@drawable/nav_logo_whiteout"
+                android:layout_centerHorizontal="true"
+            />
+            <ImageView
+                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                app:srcCompat = "@drawable/icon"
+                android:layout_alignParentLeft="true"
+                />
+
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+
 
     <FrameLayout
         android:id="@+id/homeFragment"
         android:layout_width="match_parent"
-        android:layout_height="472dp" />
+        android:layout_height="472dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/toolbar_top" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation"

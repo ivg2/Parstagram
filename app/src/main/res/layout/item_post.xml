@@ -57,4 +57,12 @@
         android:layout_toEndOf="@+id/imageView3"
         app:srcCompat="@drawable/direct" />
 
+    <TextView
+        android:id="@+id/currentTime"
+        android:layout_width="wrap_content"
+        android:layout_height="29dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:text="time" />
+
 </RelativeLayout>
