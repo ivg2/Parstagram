@@ -51,6 +51,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 .load(post.getImage().getUrl())
                 .into(viewHolder.ivImage);
 
+        if (post.getUser().getParseFile("ProfilePicture") != null) {
+            Glide.with(context)
+                    .load(post.getUser().getParseFile("ProfilePicture").getUrl())
+                    .into(viewHolder.ivProfileImage);
+        }
+
     }
 
     @Override
@@ -85,6 +91,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         public TextView tvUsername;
         public ImageView ivImage;
         public TextView tvTime;
+        public ImageView ivProfileImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -93,6 +100,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvUsername = itemView.findViewById(R.id.postUsername);
             tvTime = itemView.findViewById(R.id.currentTime);
             ivImage = itemView.findViewById(R.id.postImage);
+            ivProfileImage = itemView.findViewById(R.id.profile);
 
             itemView.setOnClickListener(this);
         }

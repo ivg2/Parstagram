@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.parse.ParseException;
+import com.parse.SaveCallback;
 
 import java.util.Date;
 
@@ -45,11 +48,19 @@ public class PostDetail extends AppCompatActivity {
         username.setText(post.getUser().getUsername());
         time.setText(getRelativeTimeAgo(post.getTime()));
         description.setText(post.getDescription());
-        likes.setText(Integer.toString(post.getLikes()));
 
         Glide.with(this)
                 .load(post.getImage().getUrl())
                 .into(image);
+
+        //initialize button to correct state
+        if(post.getIsLiked()) {
+            likeButton.setBackgroundResource(R.drawable.ufi_heart_active);
+        } else {
+            likeButton.setBackgroundResource(R.drawable.ufi_heart);
+        }
+        likes.setText(Integer.toString(post.getLikes()));
+        update();
     }
 
     // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");
@@ -62,15 +73,29 @@ public class PostDetail extends AppCompatActivity {
 
     //can like or dislike a post with this method
     public void favorite(View v) {
-        if(post.isFavorited) {
+        if(post.getIsLiked()) {
             likeButton.setBackgroundResource(R.drawable.ufi_heart);
-            post.isFavorited = false;
+            post.setIsLiked(false);
             post.setLikes(post.getLikes() - 1);
         } else {
             likeButton.setBackgroundResource(R.drawable.ufi_heart_active);
-            post.isFavorited = true;
+            post.setIsLiked(true);
             post.setLikes(post.getLikes() + 1);
         }
         likes.setText(Integer.toString(post.getLikes()));
+        update();
+    }
+
+    public void update() {
+        post.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    Log.d("HomeActivity", "Create Post Success");
+                } else {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

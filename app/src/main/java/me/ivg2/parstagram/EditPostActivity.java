@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -41,6 +42,10 @@ public class EditPostActivity extends AppCompatActivity {
     }
 
     public void post(View v) {
+        // on some click or some loading we need to wait for...
+        ProgressBar pb = (ProgressBar) findViewById(R.id.pbLoading);
+        pb.setVisibility(ProgressBar.VISIBLE);
+
         //make a Post object and add it to the timeline
         Post post = new Post();
 
@@ -71,6 +76,8 @@ public class EditPostActivity extends AppCompatActivity {
         //pass the user back to the timeline screen
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
+
+        pb.setVisibility(ProgressBar.INVISIBLE);
     }
 
     // Returns the File for a photo stored on disk given the fileName

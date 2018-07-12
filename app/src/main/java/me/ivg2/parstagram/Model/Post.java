@@ -49,6 +49,14 @@ public class Post extends ParseObject {
 
     public void setLikes(int likes) {put(KEY_LIKES, likes);}
 
+    public boolean getIsLiked() {
+        return getBoolean("isLiked");
+    }
+
+    public void setIsLiked(boolean isLiked) {
+        put("isLiked", isLiked);
+    }
+
     public static class Query extends ParseQuery<Post>{
         public Query() {
             super(Post.class);
