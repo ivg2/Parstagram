@@ -13,12 +13,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import org.parceler.Parcels;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import me.ivg2.parstagram.Model.Post;
 
@@ -63,21 +59,22 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");
-    public String getRelativeTimeAgo(String rawJsonDate) {
-        String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
-        SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
-        sf.setLenient(true);
-
+    public String getRelativeTimeAgo(Date parseDate) {
         String relativeDate = "";
-        try {
-            long dateMillis = sf.parse(rawJsonDate).getTime();
-            relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
-                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
+        long dateMillis = parseDate.getTime();
+        relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis, System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
         return relativeDate;
+    }
+
+    public void clear() {
+        posts.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items -- change to type used
+    public void addAll(List<Post> list) {
+        posts.addAll(list);
+        notifyDataSetChanged();
     }
 
     /*
@@ -109,22 +106,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 Post post = posts.get(position);
                 // create intent for the new activity
                 Intent intent = new Intent(context, PostDetail.class);
-                // serialize the movie using parceler, use its short name as a key
-                intent.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+
+                intent.putExtra("post", post);
+
                 // show the activity
                 context.startActivity(intent);
             }
         }
-    }
-
-    public void clear() {
-        posts.clear();
-        notifyDataSetChanged();
-    }
-
-    // Add a list of items -- change to type used
-    public void addAll(List<Post> list) {
-        posts.addAll(list);
-        notifyDataSetChanged();
     }
 }

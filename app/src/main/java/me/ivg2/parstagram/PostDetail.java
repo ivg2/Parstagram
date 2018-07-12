@@ -1,5 +1,6 @@
 package me.ivg2.parstagram;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
@@ -8,17 +9,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import org.parceler.Parcels;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
+import java.util.Date;
 
 import me.ivg2.parstagram.Model.Post;
 
 public class PostDetail extends AppCompatActivity {
-    public Post post;
 
+    public Post post;
     public TextView username;
     public TextView time;
     public TextView description;
@@ -34,7 +31,9 @@ public class PostDetail extends AppCompatActivity {
         description = findViewById(R.id.details);
         image = findViewById(R.id.image);
 
-        post = (Post) Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
+        Intent intent = getIntent();
+
+        post = intent.getParcelableExtra("post");
 
         username.setText(post.getUser().getUsername());
         time.setText(getRelativeTimeAgo(post.getTime()));
@@ -46,20 +45,10 @@ public class PostDetail extends AppCompatActivity {
     }
 
     // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");
-    public String getRelativeTimeAgo(String rawJsonDate) {
-        String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
-        SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
-        sf.setLenient(true);
-
+    public String getRelativeTimeAgo(Date parseDate) {
         String relativeDate = "";
-        try {
-            long dateMillis = sf.parse(rawJsonDate).getTime();
-            relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
-                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
+        long dateMillis = parseDate.getTime();
+        relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis, System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
         return relativeDate;
     }
 }

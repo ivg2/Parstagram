@@ -6,15 +6,13 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import org.parceler.Parcel;
+import java.util.Date;
 
-@Parcel
 @ParseClassName("Post")
 public class Post extends ParseObject {
     private static final String KEY_DESCRIPTION = "Description";
     private static final String KEY_IMAGE = "Image";
     private static final String KEY_USER = "User";
-    private static final String KEY_TIME = "createdAt";
 
     public String getDescription() {
         return getString(KEY_DESCRIPTION);
@@ -40,12 +38,8 @@ public class Post extends ParseObject {
         put(KEY_USER, user);
     }
 
-    public String getTime() {
-        return getString(KEY_TIME);
-    }
-
-    public void setTime(String time) {
-        put(KEY_TIME, time);
+    public Date getTime() {
+        return getCreatedAt();
     }
 
     public static class Query extends ParseQuery<Post>{
