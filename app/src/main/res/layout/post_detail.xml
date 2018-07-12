@@ -36,13 +36,49 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="41dp" />
 
+    <ImageButton
+        android:id="@+id/likeButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/image"
+        app:srcCompat="@drawable/ufi_heart"
+        android:onClick="favorite"/>
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/image"
+        android:layout_marginEnd="-125dp"
+        android:layout_toStartOf="@+id/imageView4"
+        app:srcCompat="@drawable/ufi_comment" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/image"
+        android:layout_marginStart="125dp"
+        app:srcCompat="@drawable/direct" />
+
     <TextView
         android:id="@+id/details"
         android:layout_width="385dp"
         android:layout_height="53dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/image"
+        android:layout_marginBottom="35dp"
         android:text="detail"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="441dp" />
+
+    <TextView
+        android:id="@+id/likes"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/image"
+        android:layout_toEndOf="@+id/likeButton"
+        android:text="likes" />
 </RelativeLayout>

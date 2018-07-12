@@ -49,6 +49,7 @@ public class EditPostActivity extends AppCompatActivity {
         post.setDescription(description);
 
         post.setUser(ParseUser.getCurrentUser());
+        post.setLikes(0);
 
         //get the photo url and add it to the post
         String photoFileName = "photo.jpg";
