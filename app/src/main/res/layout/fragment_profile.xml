@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/profileImageView"
+        android:layout_below="@+id/userNameText"
         android:onClick="logout"
         android:text="Logout"
         tools:layout_editor_absoluteX="148dp"
@@ -19,8 +19,8 @@
 
     <ImageView
         android:id="@+id/profileImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         app:srcCompat="@drawable/instagram_user_filled_24" />
@@ -28,8 +28,17 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvGrid"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="431dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="120dp" />
+        android:layout_marginTop="136dp" />
+
+    <TextView
+        android:id="@+id/userNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/profileImageView"
+        android:text="name"
+        android:textSize="17sp" />
 </RelativeLayout>

@@ -7,7 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -21,6 +24,9 @@ public class ProfileFragment extends Fragment {
     List<Post> posts;
     private GridAdapter gridAdapter;
     private RecyclerView rvPosts;
+
+    public ImageView profileImage;
+    public TextView username;
 
     // The onCreateView method is called when Fragment should create its View object hierarchy,
     // either dynamically or via XML layout inflation.
@@ -46,6 +52,17 @@ public class ProfileFragment extends Fragment {
 
         gridAdapter.clear();
         gridAdapter.addAll(posts);
+
+        profileImage = view.findViewById(R.id.profileImageView);
+
+        if (ParseUser.getCurrentUser().getParseFile("ProfilePicture") != null) {
+            Glide.with(this)
+                    .load(ParseUser.getCurrentUser().getParseFile("ProfilePicture").getUrl())
+                    .into(profileImage);
+        }
+
+        username = view.findViewById(R.id.userNameText);
+        username.setText(ParseUser.getCurrentUser().getUsername());
     }
 
     public void retrieveUserPosts() {
