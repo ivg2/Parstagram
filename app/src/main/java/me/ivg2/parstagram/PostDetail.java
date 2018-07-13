@@ -26,6 +26,7 @@ public class PostDetail extends AppCompatActivity {
     public TextView description;
     public ImageView image;
     public TextView likes;
+    public ImageView ivProfileImage;
 
     public ImageButton likeButton;
 
@@ -40,6 +41,7 @@ public class PostDetail extends AppCompatActivity {
         image = findViewById(R.id.image);
         likes = findViewById(R.id.likes);
         likeButton = findViewById(R.id.likeButton);
+        ivProfileImage = findViewById(R.id.profile);
 
         Intent intent = getIntent();
 
@@ -52,6 +54,12 @@ public class PostDetail extends AppCompatActivity {
         Glide.with(this)
                 .load(post.getImage().getUrl())
                 .into(image);
+
+        if (post.getUser().getParseFile("ProfilePicture") != null) {
+            Glide.with(this)
+                    .load(post.getUser().getParseFile("ProfilePicture").getUrl())
+                    .into(ivProfileImage);
+        }
 
         //initialize button to correct state
         if(post.getIsLiked()) {

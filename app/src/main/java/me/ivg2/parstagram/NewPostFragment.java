@@ -5,6 +5,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.parse.ParseUser;
 
 public class NewPostFragment extends Fragment {
 
@@ -20,5 +24,12 @@ public class NewPostFragment extends Fragment {
     // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        ImageView profileImage = view.findViewById(R.id.profileImageView);
+
+        if (ParseUser.getCurrentUser().getParseFile("ProfilePicture") != null) {
+            Glide.with(this)
+                    .load(ParseUser.getCurrentUser().getParseFile("ProfilePicture").getUrl())
+                    .into(profileImage);
+        }
     }
 }
