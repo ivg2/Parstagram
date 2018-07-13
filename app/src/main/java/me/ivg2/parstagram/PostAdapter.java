@@ -57,6 +57,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     .into(viewHolder.ivProfileImage);
         }
 
+        //initialize button to correct state
+        if(post.getIsLiked()) {
+            viewHolder.likeButton.setBackgroundResource(R.drawable.ufi_heart_active);
+        } else {
+            viewHolder.likeButton.setBackgroundResource(R.drawable.ufi_heart);
+        }
+
     }
 
     @Override
@@ -92,6 +99,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         public ImageView ivImage;
         public TextView tvTime;
         public ImageView ivProfileImage;
+        public ImageView likeButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -101,6 +109,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvTime = itemView.findViewById(R.id.currentTime);
             ivImage = itemView.findViewById(R.id.postImage);
             ivProfileImage = itemView.findViewById(R.id.profile);
+            likeButton = itemView.findViewById(R.id.likeButton);
 
             itemView.setOnClickListener(this);
         }

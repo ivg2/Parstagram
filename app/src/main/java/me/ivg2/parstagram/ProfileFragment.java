@@ -42,11 +42,19 @@ public class ProfileFragment extends Fragment {
         rvPosts.setLayoutManager(new GridLayoutManager(getActivity(), 3));
         rvPosts.setAdapter(gridAdapter);
 
+        retrieveUserPosts();
+
+        gridAdapter.clear();
+        gridAdapter.addAll(posts);
+    }
+
+    public void retrieveUserPosts() {
         //get all posts using a query
         //grabs all of the posts in the background
         final Post.Query postsQuery = new Post.Query();
-        postsQuery.getTop().withUser().addDescendingOrder("createdAt");
-        //postsQuery.getTop().withUser();
+        postsQuery.whereEqualTo("User", ParseUser.getCurrentUser());
+
+        postsQuery.addDescendingOrder("createdAt");
 
         postsQuery.findInBackground(new FindCallback<Post>() {
             @Override
@@ -59,16 +67,5 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
-
-        //initialize the list with all posts created by ParseUser.getCurrentUser()
-        ArrayList<Post> userPost = new ArrayList<>();
-        for (Post post : posts) {
-            if (post.getUser().equals(ParseUser.getCurrentUser())) {
-                userPost.add(post);
-            }
-        }
-
-        gridAdapter.clear();
-        gridAdapter.addAll(userPost);
     }
 }
