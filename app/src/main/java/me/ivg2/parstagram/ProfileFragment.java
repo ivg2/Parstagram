@@ -143,8 +143,7 @@ public class ProfileFragment extends Fragment {
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(
                         Objects.requireNonNull(getContext()).getContentResolver(),
-                        selectedImage
-                );
+                        selectedImage);
                 profileImage.setImageBitmap(bitmap);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
